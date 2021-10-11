@@ -7,7 +7,7 @@ minevoxel 10/9/2021 TODO:
 	> pipeline - done
 	> renderer - done
 > input - done
-> support for CMake
+> support for CMake - done
 > camera
 > model
 > shadery: vertex shader, fragment shader
