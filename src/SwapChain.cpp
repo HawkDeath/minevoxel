@@ -23,9 +23,9 @@ namespace mv {
     }
     swapChainImageViews.clear();
 
-    if (swapChain != nullptr) {
+    if (swapChain != 0) {
       vkDestroySwapchainKHR(mDevice.device(), swapChain, CUSTOM_ALLOCATOR);
-      swapChain = nullptr;
+      swapChain = 0;
     }
 
     for (int i = 0; i < depthImages.size(); i++) {

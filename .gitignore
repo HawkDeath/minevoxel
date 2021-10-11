@@ -5,6 +5,7 @@
 
 # build
 build/
+output/
 
 # Prerequisites
 *.d

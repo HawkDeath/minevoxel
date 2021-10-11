@@ -43,8 +43,8 @@ namespace mv {
 		VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
 		std::vector<VkDynamicState> dynamicStateEnables;
 		VkPipelineDynamicStateCreateInfo dynamicStateInfo;
-		VkPipelineLayout pipelineLayout = { nullptr };
-		VkRenderPass renderPass = { nullptr };
+		VkPipelineLayout pipelineLayout = { 0 };
+		VkRenderPass renderPass = { 0 };
 		std::uint32_t subpass = { 0 };
 	};
 
