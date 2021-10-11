@@ -107,7 +107,7 @@ namespace mv {
 			RT_THROW("Failed to craete instance");
 		}
 
-		checkRequiredInstanceExtesnions();
+        checkRequiredInstanceExtentions();
 	}
 
 	void Device::setupDebugMsg()
@@ -237,7 +237,7 @@ namespace mv {
 		return extensions;
 	}
 
-	void Device::checkRequiredInstanceExtesnions()
+	void Device::checkRequiredInstanceExtentions()
 	{
 		std::uint32_t countExtension = 0;
 		vkEnumerateInstanceExtensionProperties(nullptr, &countExtension, nullptr);

@@ -69,7 +69,7 @@ namespace mv {
     void createCommandPool();
 
     std::vector<const char*> getRequiredExtensions();
-    void checkRequiredInstanceExtesnions();
+    void checkRequiredInstanceExtentions();
     void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo);
     bool checkValidationLayerSupport();
 
