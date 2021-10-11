@@ -32,10 +32,19 @@ namespace mv {
 			return input;
 		}
 
+        bool wasResized() const {
+            return windowWasResized;
+        }
+
+        void resetResizeFlag() {
+            windowWasResized = false;
+        }
+
 	private:
 		void createWindow();
 
 		static void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods);
+        static void framebuffer_size_callback(GLFWwindow *win, int width, int height);
 
 	private:
 		std::uint32_t mWidth;
@@ -43,6 +52,7 @@ namespace mv {
 		std::string mTitle;
 		GLFWwindow* mWindow;
 		std::shared_ptr<Input> input;
+        bool windowWasResized = {false};
 	};
 
 }

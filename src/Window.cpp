@@ -41,6 +41,7 @@ namespace mv {
     LOG("GLFW {}.{}.{}", GLFW_VERSION_MAJOR, GLFW_VERSION_MINOR, GLFW_VERSION_REVISION);
     glfwSetWindowUserPointer(mWindow, this);
     glfwSetKeyCallback(mWindow, &Window::key_callback);
+    glfwSetFramebufferSizeCallback(mWindow, &Window::framebuffer_size_callback);
     input = std::make_shared<Input>();
   }
 
@@ -48,6 +49,12 @@ namespace mv {
   {
     auto window = reinterpret_cast<Window*>(glfwGetWindowUserPointer(win));
     window->input->keys[key] = action;
-    LOG("Has been press key: {}, action: {}", key, action);
+  }
+
+  void Window::framebuffer_size_callback(GLFWwindow *win, int width, int height) {
+    auto window = reinterpret_cast<Window*>(glfwGetWindowUserPointer(win));
+    window->windowWasResized = true;
+    window->mWidth = static_cast<std::uint32_t>(width);
+    window->mHeight = static_cast<std::uint32_t>(height);
   }
 }

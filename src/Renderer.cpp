@@ -52,9 +52,10 @@ namespace mv {
     }
 
     auto result = swapChain->submitCommandBuffers(&commandBuffer, &currentImageIdx);
-    if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR // TODO: add '|| window has been resized'
-      ) {
+    if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR
+       || mWindow.wasResized()) {
       recreateSwapChain();
+      mWindow.resetResizeFlag();
     }
     else if (result != VK_SUCCESS) {
       RT_THROW("Failed to present swap chain image");
