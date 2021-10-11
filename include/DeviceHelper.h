@@ -22,7 +22,7 @@ namespace mv {
 		std::optional<std::uint32_t> graphicsFamily;
 		std::optional<std::uint32_t> presentFamily;
 
-		bool isComplete() noexcept {
+		bool isComplete() const noexcept {
 			return graphicsFamily.has_value() && presentFamily.has_value();
 		}
 	};

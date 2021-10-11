@@ -34,15 +34,15 @@ namespace mv {
 		PipelineConfig(const PipelineConfig&) = delete;
 		PipelineConfig& operator=(const PipelineConfig&) = delete;
 
-		VkPipelineViewportStateCreateInfo viewportInfo;
-		VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
-		VkPipelineRasterizationStateCreateInfo rasterizationInfo;
-		VkPipelineMultisampleStateCreateInfo multisampleInfo;
-		VkPipelineColorBlendAttachmentState colorBlendAttachment;
-		VkPipelineColorBlendStateCreateInfo colorBlendInfo;
-		VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
+		VkPipelineViewportStateCreateInfo viewportInfo = {};
+		VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo = {};
+		VkPipelineRasterizationStateCreateInfo rasterizationInfo = {};
+		VkPipelineMultisampleStateCreateInfo multisampleInfo = {};
+		VkPipelineColorBlendAttachmentState colorBlendAttachment = {};
+		VkPipelineColorBlendStateCreateInfo colorBlendInfo = {};
+		VkPipelineDepthStencilStateCreateInfo depthStencilInfo = {};
 		std::vector<VkDynamicState> dynamicStateEnables;
-		VkPipelineDynamicStateCreateInfo dynamicStateInfo;
+		VkPipelineDynamicStateCreateInfo dynamicStateInfo = {};
 		VkPipelineLayout pipelineLayout = { 0 };
 		VkRenderPass renderPass = { 0 };
 		std::uint32_t subpass = { 0 };

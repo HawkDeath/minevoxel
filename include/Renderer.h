@@ -41,7 +41,7 @@ namespace mv {
 		void endSwapChainRenderPass(VkCommandBuffer commandBuffer);
 
 	private:
-		void createCommanBuffers();
+		void createCommandBuffers();
 		void freeCommandBuffers();
 		void recreateSwapChain();
 

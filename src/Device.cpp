@@ -1,7 +1,6 @@
 #include "Device.h"
 #include "Log.h"
 
-#include <GLFW/glfw3.h>
 #include <unordered_set>
 #include <set>
 
@@ -12,6 +11,9 @@ namespace mv {
 		VkDebugUtilsMessageTypeFlagsEXT messageType,
 		const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
 		void* pUserData) {
+        UNUSE(messageSeverity);
+        UNUSE(messageType);
+        UNUSE(pUserData);
 		ELOG("validation layer: {}", pCallbackData->pMessage);
 
 		return VK_FALSE;
@@ -112,6 +114,13 @@ namespace mv {
 
 	void Device::setupDebugMsg()
 	{
+        if (!enableValidationLayers) return;
+
+        VkDebugUtilsMessengerCreateInfoEXT createInfo;
+        populateDebugMessengerCreateInfo(createInfo);
+        if (VK_TEST(CreateDebugUtilsMessengerEXT(instance, &createInfo, CUSTOM_ALLOCATOR, &debugMessenger))) {
+            RT_THROW("Failed to setup debug messanger");
+        }
 	}
 
 	void Device::createSurface()
@@ -317,10 +326,10 @@ namespace mv {
 			VkFormatProperties prop;
 			vkGetPhysicalDeviceFormatProperties(physicalDevice, format, &prop);
 
-			if (tiling == VK_IMAGE_TILING_LINEAR & (prop.linearTilingFeatures & features) == features) {
+			if (tiling == VK_IMAGE_TILING_LINEAR && (prop.linearTilingFeatures & features) == features) {
 				return format;
 			}
-			else if (tiling == VK_IMAGE_TILING_OPTIMAL & (prop.optimalTilingFeatures & features) == features) {
+			else if (tiling == VK_IMAGE_TILING_OPTIMAL && (prop.optimalTilingFeatures & features) == features) {
 				return format;
 			}
 		}

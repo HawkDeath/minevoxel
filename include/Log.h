@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 #define RT_THROW(...) throw std::runtime_error(__VA_ARGS__)
+#define UNUSE(val) (void)val
 
 #define LOGGER
 

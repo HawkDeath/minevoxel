@@ -50,7 +50,7 @@ namespace mv {
         }
         VkBool32 presentSupport = false;
         vkGetPhysicalDeviceSurfaceSupportKHR(device, i, *surface, &presentSupport);
-        if (queueFamily.queueCount > 0 & presentSupport) {
+        if (queueFamily.queueCount > 0 && presentSupport) {
           indices.presentFamily = i;
         }
 
@@ -90,10 +90,10 @@ namespace mv {
       auto indices = findQueueFamilies(device, surface);
       bool extensionsSupported = checkDeviceExtensionSupport(device, deviceExtensions);
 
-      bool swapChainAdequate = false;
+      bool swapChainAdequate = {false};
       if (extensionsSupported) {
         auto swapChainSupport = querySwapChainSupport(device, surface);
-        swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
+          swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
       }
 
       VkPhysicalDeviceFeatures supportedFeatures;

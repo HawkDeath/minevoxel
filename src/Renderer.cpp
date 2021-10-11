@@ -3,10 +3,10 @@
 #include <array>
 
 namespace mv {
-  Renderer::Renderer(Window& window, Device& device) : mWindow{ window }, mDevice{ device }
+  Renderer::Renderer(Window& window, Device& device) : mWindow{ window }, mDevice{ device }, currentImageIdx{0}
   {
     recreateSwapChain();
-    createCommanBuffers();
+      createCommandBuffers();
   }
 
   Renderer::~Renderer()
@@ -73,7 +73,7 @@ namespace mv {
     VkRenderPassBeginInfo renderPassInfo = { };
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass = swapChain->getRenderPass();
-    renderPassInfo.framebuffer = swapChain->getFrameBuffer(currentImageIdx);
+    renderPassInfo.framebuffer = swapChain->getFrameBuffer(static_cast<int>(currentImageIdx));
 
     renderPassInfo.renderArea.offset = { 0, 0 };
     renderPassInfo.renderArea.extent = swapChain->getSwapChainExtent();
@@ -107,7 +107,7 @@ namespace mv {
     vkCmdEndRenderPass(commandBuffer);
   }
 
-  void Renderer::createCommanBuffers()
+  void Renderer::createCommandBuffers()
   {
     commandBuffers.resize(SwapChain::MAX_FRAME_IN_FLIGHT);
 
@@ -145,7 +145,7 @@ namespace mv {
       std::shared_ptr<SwapChain> oldSwapChain = std::move(swapChain);
       swapChain = std::make_unique<SwapChain>(mDevice, extent, oldSwapChain);
 
-      if (!oldSwapChain->compareSwapFormats(*swapChain.get())) {
+      if (!oldSwapChain->compareSwapFormats(*swapChain)) {
         RT_THROW("Swap chain image(or depth) format has changed");
       }
     }

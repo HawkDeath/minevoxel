@@ -11,7 +11,7 @@ namespace mv {
   }
 
   SwapChain::SwapChain(Device& device, VkExtent2D extent, std::shared_ptr<SwapChain> perviousSwapChain)
-    : mDevice{ device }, windowExtent{ extent }, oldSwapChain{ perviousSwapChain } {
+    : mDevice{ device }, windowExtent{ extent }, oldSwapChain{ std::move(perviousSwapChain) } {
     initialize();
     oldSwapChain = nullptr;
   }

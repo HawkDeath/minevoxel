@@ -5,7 +5,8 @@
 
 namespace mv {
 
-  Window::Window(const std::string& title, const std::uint32_t& width, const std::uint32_t& height) : mTitle{ title }, mWidth{ width }, mHeight{ height }, mWindow{ nullptr }
+  Window::Window(const std::string& title, const std::uint32_t& width, const std::uint32_t& height)
+  : mTitle{ title }, mWidth{ width }, mHeight{ height }, mWindow{ nullptr }
   {
     glfwSetErrorCallback([](int code, const char* description) -> void {
       ELOG("[GLFW] {}: {}", code, description);
@@ -37,7 +38,7 @@ namespace mv {
 
   void Window::createWindow()
   {
-    mWindow = glfwCreateWindow(mWidth, mHeight, mTitle.c_str(), nullptr, nullptr);
+    mWindow = glfwCreateWindow(static_cast<int>(mWidth), static_cast<int>(mHeight), mTitle.c_str(), nullptr, nullptr);
     LOG("GLFW {}.{}.{}", GLFW_VERSION_MAJOR, GLFW_VERSION_MINOR, GLFW_VERSION_REVISION);
     glfwSetWindowUserPointer(mWindow, this);
     glfwSetKeyCallback(mWindow, &Window::key_callback);
@@ -47,8 +48,10 @@ namespace mv {
 
   void Window::key_callback(GLFWwindow* win, int key, int scancode, int action, int mods)
   {
-    auto window = reinterpret_cast<Window*>(glfwGetWindowUserPointer(win));
-    window->input->keys[key] = action;
+      UNUSE(scancode);
+      UNUSE(mods);
+      auto window = reinterpret_cast<Window*>(glfwGetWindowUserPointer(win));
+      window->input->keys[key] = action;
   }
 
   void Window::framebuffer_size_callback(GLFWwindow *win, int width, int height) {
