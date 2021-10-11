@@ -1,0 +1,15 @@
+minevoxel 10/9/2021 TODO:
+> window - done
+> main class - done
+> vulkan device support - draw triangle = DONE
+	> device - done
+	> swapchain - done
+	> pipeline - done
+	> renderer - done
+> input - done
+> support for CMake
+> camera
+> model
+> shadery: vertex shader, fragment shader
+> render system
+> support for VMA
