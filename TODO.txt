@@ -8,8 +8,8 @@ minevoxel 10/9/2021 TODO:
 	> renderer - done
 > input - done
 > support for CMake - done
+> shadery: vertex shader, fragment shader - done (only Triangle)
 > camera
 > model
-> shadery: vertex shader, fragment shader
 > render system
 > support for VMA

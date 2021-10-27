@@ -17,6 +17,12 @@ namespace mv {
 			float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
 			currentTime = newTime;
 
+            // update
+            auto input = window.getInput();
+            if (input->getKeyState(GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+                glfwSetWindowShouldClose(window.window(), GLFW_TRUE);
+            }
+
 			// draw
 			float aspect = renderer.getAspectRatio();
 

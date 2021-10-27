@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 file(MAKE_DIRECTORY "${CMAKE_SOURCE_DIR}/output")
 file(MAKE_DIRECTORY "${CMAKE_SOURCE_DIR}/output/bin")
 file(MAKE_DIRECTORY "${CMAKE_SOURCE_DIR}/output/lib")
+file(MAKE_DIRECTORY "${CMAKE_SOURCE_DIR}/output/bin/shaders")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/output/lib")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/output/bin")
@@ -14,6 +15,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/output/lib")
 
 # find Vulkan
 find_package(Vulkan REQUIRED FATAL_ERROR)
+find_package(Vulkan COMPONENTS glslc)
 
 # glfw
 set(GLFW_BUILD_EXAMPLES OFF)
@@ -39,6 +41,13 @@ endif()
 # spdlog
 add_subdirectory(deps/spdlog)
 
+set(SHADER_SOURCES
+        "${CMAKE_SOURCE_DIR}/shaders/triangle.vert"
+        "${CMAKE_SOURCE_DIR}/shaders/triangle.frag")
+
+# TODO build shaders
+
+
 include_directories(./include)
 
 set(MINEVOXEL_HPP
@@ -62,4 +71,4 @@ set(MINEVOXEL_SRC
 set(MINEVOXEL_SOURCES main.cpp ${MINEVOXEL_SRC} ${MINEVOXEL_HPP})
 
 add_executable(${PROJECT_NAME} ${MINEVOXEL_SOURCES})
-target_link_libraries(${PROJECT_NAME} PRIVATE spdlog Vulkan::Vulkan glfw glm )
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog Vulkan::Vulkan glfw glm)
