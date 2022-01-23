@@ -152,9 +152,9 @@ namespace mv {
 		pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
 		pipelineInfo.basePipelineIndex = -1;
 
-		if (VK_TEST(vkCreateGraphicsPipelines(mDevice.device(), VK_NULL_HANDLE, 1, &pipelineInfo, CUSTOM_ALLOCATOR, &graphicsPipeline))) {
-			RT_THROW("Failed to create graphics pipeline");
-		}
+		VK_TEST(vkCreateGraphicsPipelines(mDevice.device(), VK_NULL_HANDLE, 1, &pipelineInfo, CUSTOM_ALLOCATOR, &graphicsPipeline),
+		"Failed to create graphics pipeline")
+		
 	}
 
 	void Pipeline::createShaderModule(const std::vector<char>& shaderBinary, VkShaderModule* shaderModule)
@@ -164,9 +164,7 @@ namespace mv {
 		createInfo.codeSize = shaderBinary.size();
 		createInfo.pCode = reinterpret_cast<const std::uint32_t*>(shaderBinary.data());
 
-		if (VK_TEST(vkCreateShaderModule(mDevice.device(), &createInfo, CUSTOM_ALLOCATOR, shaderModule))) {
-			RT_THROW("Failed to create shader module");
-		}
+		VK_TEST(vkCreateShaderModule(mDevice.device(), &createInfo, CUSTOM_ALLOCATOR, shaderModule), "Failed to create shader module")
 	}
 	std::vector<VkVertexInputBindingDescription> Vertex::getBindingDescriptions()
 	{

@@ -5,9 +5,10 @@
 #include <cstdint>
 #include <optional>
 #include <vector>
+#include "Log.h"
 
 #define CUSTOM_ALLOCATOR nullptr
-#define VK_TEST(func) ((func) != VK_SUCCESS)
+#define VK_TEST(func, msg) if (((func) != VK_SUCCESS)) {RT_THROW(msg);}
 
 namespace mv {
 	struct SwapChainSupportDetails

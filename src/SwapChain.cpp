@@ -103,9 +103,7 @@ namespace mv {
 
     createInfo.oldSwapchain = oldSwapChain == nullptr ? VK_NULL_HANDLE : oldSwapChain->swapChain;
 
-    if (VK_TEST(vkCreateSwapchainKHR(mDevice.device(), &createInfo, CUSTOM_ALLOCATOR, &swapChain))) {
-      RT_THROW("Failed to create swap chain");
-    }
+    VK_TEST(vkCreateSwapchainKHR(mDevice.device(), &createInfo, CUSTOM_ALLOCATOR, &swapChain), "Failed to create swap chain")
 
     vkGetSwapchainImagesKHR(mDevice.device(), swapChain, &imageCount, nullptr);
     swapChainImages.resize(imageCount);
@@ -130,10 +128,8 @@ namespace mv {
       viewInfo.subresourceRange.baseArrayLayer = 0;
       viewInfo.subresourceRange.layerCount = 1;
 
-      if (VK_TEST(vkCreateImageView(mDevice.device(), &viewInfo, CUSTOM_ALLOCATOR, &swapChainImageViews[i]))) {
-        RT_THROW("Failed to create texture image view");
-      }
-
+      VK_TEST(vkCreateImageView(mDevice.device(), &viewInfo, CUSTOM_ALLOCATOR, &swapChainImageViews[i]),
+      "Failed to create texture image view")
     }
   }
 
@@ -175,9 +171,8 @@ namespace mv {
       viewInfo.subresourceRange.levelCount = 1;
       viewInfo.subresourceRange.layerCount = 1;
 
-      if (VK_TEST(vkCreateImageView(mDevice.device(), &viewInfo, CUSTOM_ALLOCATOR, &depthImageViews[i]))) {
-        RT_THROW("Failed to create texture image view");
-      }
+      VK_TEST(vkCreateImageView(mDevice.device(), &viewInfo, CUSTOM_ALLOCATOR, &depthImageViews[i]),"Failed to create texture image view")
+      
     }
   }
 
@@ -234,9 +229,7 @@ namespace mv {
     renderPassInfo.dependencyCount = 1;
     renderPassInfo.pDependencies = &subpassDeps;
 
-    if (VK_TEST(vkCreateRenderPass(mDevice.device(), &renderPassInfo, CUSTOM_ALLOCATOR, &renderPass))) {
-      RT_THROW("Failed to create render pass");
-    }
+    VK_TEST(vkCreateRenderPass(mDevice.device(), &renderPassInfo, CUSTOM_ALLOCATOR, &renderPass),"Failed to create render pass")
 
   }
 
@@ -257,9 +250,7 @@ namespace mv {
       framebufferInfo.height = swapChainExtent.height;
       framebufferInfo.layers = 1;
 
-      if (VK_TEST(vkCreateFramebuffer(mDevice.device(), &framebufferInfo, CUSTOM_ALLOCATOR, &swapChainFramebuffers[i]))) {
-        RT_THROW("Failed to create framebuffers");
-      }
+      VK_TEST(vkCreateFramebuffer(mDevice.device(), &framebufferInfo, CUSTOM_ALLOCATOR, &swapChainFramebuffers[i]), "Failed to create framebuffers")
     }
   }
 
@@ -278,12 +269,11 @@ namespace mv {
 
     for (size_t i = 0; i < MAX_FRAME_IN_FLIGHT; i++)
     {
-      if (VK_TEST(vkCreateSemaphore(mDevice.device(), &semaphoreInfo, CUSTOM_ALLOCATOR, &imageAvailableSemaphores[i])) ||
-        VK_TEST(vkCreateSemaphore(mDevice.device(), &semaphoreInfo, CUSTOM_ALLOCATOR, &renderFinishedSemaphores[i])) ||
-        VK_TEST(vkCreateFence(mDevice.device(), &fenceInfo, CUSTOM_ALLOCATOR, &inFlightFences[i]))
-        ) {
-        RT_THROW("Failed to create synchronization objects for frame");
-      }
+       VK_TEST(vkCreateSemaphore(mDevice.device(), &semaphoreInfo, CUSTOM_ALLOCATOR, &imageAvailableSemaphores[i]) ||
+        (vkCreateSemaphore(mDevice.device(), &semaphoreInfo, CUSTOM_ALLOCATOR, &renderFinishedSemaphores[i])) ||
+        (vkCreateFence(mDevice.device(), &fenceInfo, CUSTOM_ALLOCATOR, &inFlightFences[i])),
+        "Failed to create synchronization objects for frame")
+      
     }
   }
 
@@ -332,9 +322,7 @@ namespace mv {
 
     vkResetFences(mDevice.device(), 1, &inFlightFences[currentFrame]);
 
-    if (VK_TEST(vkQueueSubmit(mDevice.getGraphicsQueue(), 1, &submitInfo, inFlightFences[currentFrame]))) {
-      RT_THROW("Failed to submit draw command buffer");
-    }
+    VK_TEST(vkQueueSubmit(mDevice.getGraphicsQueue(), 1, &submitInfo, inFlightFences[currentFrame]), "Failed to submit draw command buffer")
 
     VkPresentInfoKHR presentInfo = {};
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;

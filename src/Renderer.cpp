@@ -34,9 +34,7 @@ namespace mv {
     VkCommandBufferBeginInfo beginInfo = {};
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 
-    if (VK_TEST(vkBeginCommandBuffer(commandBuffer, &beginInfo))) {
-      RT_THROW("Failed to begin recording command buffer");
-    }
+    VK_TEST(vkBeginCommandBuffer(commandBuffer, &beginInfo), "Failed to begin recording command buffer")
 
     return commandBuffer;
   }
@@ -47,9 +45,7 @@ namespace mv {
 
     auto commandBuffer = getCurrentCommandBuffer();
 
-    if (VK_TEST(vkEndCommandBuffer(commandBuffer))) {
-      RT_THROW("Failed to record command buffer");
-    }
+    VK_TEST(vkEndCommandBuffer(commandBuffer), "Failed to record command buffer")
 
     auto result = swapChain->submitCommandBuffers(&commandBuffer, &currentImageIdx);
     if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR
@@ -117,9 +113,7 @@ namespace mv {
     allocInfo.commandPool = mDevice.getCommandPool();
     allocInfo.commandBufferCount = static_cast<std::uint32_t>(commandBuffers.size());
 
-    if (VK_TEST(vkAllocateCommandBuffers(mDevice.device(), &allocInfo, commandBuffers.data()))) {
-      RT_THROW("Failed to allocate command buffers");
-    }
+    VK_TEST(vkAllocateCommandBuffers(mDevice.device(), &allocInfo, commandBuffers.data()), "Failed to allocate command buffers")
   }
 
   void Renderer::freeCommandBuffers()

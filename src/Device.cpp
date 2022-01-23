@@ -105,9 +105,7 @@ namespace mv {
 			createInfo.pNext = nullptr;
 		}
 
-		if (VK_TEST(vkCreateInstance(&createInfo, CUSTOM_ALLOCATOR, &instance))) {
-			RT_THROW("Failed to craete instance");
-		}
+		VK_TEST(vkCreateInstance(&createInfo, CUSTOM_ALLOCATOR, &instance), "Failed to create instance")
 
         checkRequiredInstanceExtentions();
 	}
@@ -118,9 +116,7 @@ namespace mv {
 
         VkDebugUtilsMessengerCreateInfoEXT createInfo;
         populateDebugMessengerCreateInfo(createInfo);
-        if (VK_TEST(CreateDebugUtilsMessengerEXT(instance, &createInfo, CUSTOM_ALLOCATOR, &debugMessenger))) {
-            RT_THROW("Failed to setup debug messanger");
-        }
+        VK_TEST(CreateDebugUtilsMessengerEXT(instance, &createInfo, CUSTOM_ALLOCATOR, &debugMessenger), "Failed to setup debug messanger")
 	}
 
 	void Device::createSurface()
@@ -151,7 +147,7 @@ namespace mv {
 			VkPhysicalDeviceProperties prop;
 			vkGetPhysicalDeviceProperties(gpu, &prop);
 			if (device_helper::isDeviceSuitable(gpu, &surface, deviceExtensions)) {
-				if (prop.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU) {
+				if (prop.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU) { // prefered GPU
 					physicalDevice = gpu;
 					break;
 				}
@@ -208,9 +204,7 @@ namespace mv {
 			createInfo.enabledLayerCount = 0;
 		}
 
-		if (VK_TEST(vkCreateDevice(physicalDevice, &createInfo, CUSTOM_ALLOCATOR, &mDevice))) {
-			RT_THROW("Failed to create logical device");
-		}
+		VK_TEST(vkCreateDevice(physicalDevice, &createInfo, CUSTOM_ALLOCATOR, &mDevice), "Failed to create logical device")
 
 		vkGetDeviceQueue(mDevice, indices.graphicsFamily.value(), 0, &graphicsQueue);
 		vkGetDeviceQueue(mDevice, indices.presentFamily.value(), 0, &presentQueue);
@@ -225,10 +219,8 @@ namespace mv {
 		poolInfo.queueFamilyIndex = queueFamilyIndices.graphicsFamily.value();
 		poolInfo.flags = VK_COMMAND_POOL_CREATE_TRANSIENT_BIT | VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
 
-		if (VK_TEST(vkCreateCommandPool(mDevice, &poolInfo, CUSTOM_ALLOCATOR, &commandPool))) {
-			RT_THROW("Failed to create command pool");
-		}
-
+		VK_TEST(vkCreateCommandPool(mDevice, &poolInfo, CUSTOM_ALLOCATOR, &commandPool), "Failed to create command pool")
+		
 	}
 
 	std::vector<const char*> Device::getRequiredExtensions()
@@ -343,10 +335,8 @@ namespace mv {
 		bufferInfo.usage = usage;
 		bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
-		if (VK_TEST(vkCreateBuffer(mDevice, &bufferInfo, CUSTOM_ALLOCATOR, &buffer))) {
-			RT_THROW("Failed to create buffer");
-		}
-
+		VK_TEST(vkCreateBuffer(mDevice, &bufferInfo, CUSTOM_ALLOCATOR, &buffer),"Failed to create buffer")
+		
 		VkMemoryRequirements memReq;
 		vkGetBufferMemoryRequirements(mDevice, buffer, &memReq);
 
@@ -355,14 +345,12 @@ namespace mv {
 		allocInfo.allocationSize = memReq.size;
 		allocInfo.memoryTypeIndex = findMemoryType(memReq.memoryTypeBits, properties);
 
-		if (VK_TEST(vkAllocateMemory(mDevice, &allocInfo, CUSTOM_ALLOCATOR, &bufferMemory))) {
-			RT_THROW("Failed to allocate buffer memory");
-		}
+		VK_TEST(vkAllocateMemory(mDevice, &allocInfo, CUSTOM_ALLOCATOR, &bufferMemory), "Failed to allocate buffer memory")
+		
 
 		// worst case scenario; each buffer (index, vertex, uniform) needs separeate memoryBuffer and buffer
-		if (VK_TEST(vkBindBufferMemory(mDevice, buffer, bufferMemory, 0))) {
-			RT_THROW("Failed to bind buffer memory");
-		}
+		VK_TEST(vkBindBufferMemory(mDevice, buffer, bufferMemory, 0), "Failed to bind buffer memory")
+		
 	}
 	
 	void Device::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size) {
@@ -398,9 +386,7 @@ namespace mv {
 	
 	void Device::createImageWithInfo(const VkImageCreateInfo& imageInfo, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory) {
 
-		if (VK_TEST(vkCreateImage(mDevice, &imageInfo, CUSTOM_ALLOCATOR, &image))) {
-			RT_THROW("Failed to create image");
-		}
+		VK_TEST(vkCreateImage(mDevice, &imageInfo, CUSTOM_ALLOCATOR, &image), "Failed to create image")
 
 		VkMemoryRequirements memReq;
 		vkGetImageMemoryRequirements(mDevice, image, &memReq);
@@ -410,14 +396,9 @@ namespace mv {
 		allocInfo.allocationSize = memReq.size;
 		allocInfo.memoryTypeIndex = findMemoryType(memReq.memoryTypeBits, properties);
 
-		if (VK_TEST(vkAllocateMemory(mDevice, &allocInfo, CUSTOM_ALLOCATOR, &imageMemory))) {
-			RT_THROW("Failed to allocate image memory");
-		}
+		VK_TEST(vkAllocateMemory(mDevice, &allocInfo, CUSTOM_ALLOCATOR, &imageMemory),"Failed to allocate image memory")
 
-		if (VK_TEST(vkBindImageMemory(mDevice, image, imageMemory, 0))) {
-			RT_THROW("Failed to bind image memory");
-		}
-
+		VK_TEST(vkBindImageMemory(mDevice, image, imageMemory, 0), "Failed to bind image memory")
 	}
 	
 	VkCommandBuffer Device::beginSingleTimeCommands() {
