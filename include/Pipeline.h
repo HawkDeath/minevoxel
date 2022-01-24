@@ -10,7 +10,6 @@
 #include <glm/glm.hpp>
 
 namespace mv {
-
 	struct Vertex
 	{
 		glm::vec3 position = {};
@@ -26,7 +25,6 @@ namespace mv {
 		}
 
 	};
-
 
 	struct PipelineConfig
 	{
@@ -69,5 +67,4 @@ namespace mv {
 		VkShaderModule vertexShaderModule;
 		VkShaderModule fragmentShaderModule;
 	};
-
 }

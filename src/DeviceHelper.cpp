@@ -102,6 +102,7 @@ namespace mv {
       return indices.isComplete() && extensionsSupported && swapChainAdequate && supportedFeatures.samplerAnisotropy;
     }
   }
+  
   namespace swapchain_helper {
     VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats) {
       for (const auto& availableFormat : availableFormats) {
@@ -157,5 +158,4 @@ namespace mv {
       return buffer;
     }
   }
-
 }

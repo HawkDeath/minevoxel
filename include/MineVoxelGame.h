@@ -20,5 +20,4 @@ namespace mv {
 		Device device{ window };
 		Renderer renderer{ window, device };
 	};
-
 }

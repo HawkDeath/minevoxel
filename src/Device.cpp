@@ -230,7 +230,6 @@ namespace mv {
 
 		std::vector<const char*> extensions(glfwExtensions, glfwExtensions + glfwExtensionsCount);
 
-		// TODO: add validation extension VK_EXT_DEBUG_UTILS_EXTENSION_NAME
 		if (enableValidationLayers) {
 			extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
 		}
@@ -245,7 +244,7 @@ namespace mv {
 		std::vector<VkExtensionProperties> extensions(countExtension);
 		vkEnumerateInstanceExtensionProperties(nullptr, &countExtension, extensions.data());
 
-		LOG("Vulkan extensions");
+		LOG("Vulkan extensions: {}", extensions.size());
 		std::unordered_set<std::string> available;
 		for (const auto& extension : extensions) {
 			LOG("\t{}", extension.extensionName);
@@ -335,7 +334,7 @@ namespace mv {
 		bufferInfo.usage = usage;
 		bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
-		VK_TEST(vkCreateBuffer(mDevice, &bufferInfo, CUSTOM_ALLOCATOR, &buffer),"Failed to create buffer")
+		VK_TEST(vkCreateBuffer(mDevice, &bufferInfo, CUSTOM_ALLOCATOR, &buffer), "Failed to create buffer")
 		
 		VkMemoryRequirements memReq;
 		vkGetBufferMemoryRequirements(mDevice, buffer, &memReq);
@@ -350,7 +349,6 @@ namespace mv {
 
 		// worst case scenario; each buffer (index, vertex, uniform) needs separeate memoryBuffer and buffer
 		VK_TEST(vkBindBufferMemory(mDevice, buffer, bufferMemory, 0), "Failed to bind buffer memory")
-		
 	}
 	
 	void Device::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size) {
@@ -396,7 +394,7 @@ namespace mv {
 		allocInfo.allocationSize = memReq.size;
 		allocInfo.memoryTypeIndex = findMemoryType(memReq.memoryTypeBits, properties);
 
-		VK_TEST(vkAllocateMemory(mDevice, &allocInfo, CUSTOM_ALLOCATOR, &imageMemory),"Failed to allocate image memory")
+		VK_TEST(vkAllocateMemory(mDevice, &allocInfo, CUSTOM_ALLOCATOR, &imageMemory), "Failed to allocate image memory")
 
 		VK_TEST(vkBindImageMemory(mDevice, image, imageMemory, 0), "Failed to bind image memory")
 	}
@@ -433,4 +431,3 @@ namespace mv {
 		vkFreeCommandBuffers(mDevice, commandPool, 1, &commandBuffer);
 	}
 }
-

@@ -172,7 +172,6 @@ namespace mv {
       viewInfo.subresourceRange.layerCount = 1;
 
       VK_TEST(vkCreateImageView(mDevice.device(), &viewInfo, CUSTOM_ALLOCATOR, &depthImageViews[i]),"Failed to create texture image view")
-      
     }
   }
 
@@ -230,7 +229,6 @@ namespace mv {
     renderPassInfo.pDependencies = &subpassDeps;
 
     VK_TEST(vkCreateRenderPass(mDevice.device(), &renderPassInfo, CUSTOM_ALLOCATOR, &renderPass),"Failed to create render pass")
-
   }
 
   void SwapChain::createFramebuffers() {
@@ -284,6 +282,7 @@ namespace mv {
       VK_IMAGE_TILING_OPTIMAL,
       VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
   }
+  
   VkResult SwapChain::acquireNextImage(std::uint32_t* imageIdx)
   {
     vkWaitForFences(mDevice.device(), 1, &inFlightFences[currentFrame], VK_TRUE, std::numeric_limits<std::uint64_t>::max());

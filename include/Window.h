@@ -54,5 +54,4 @@ namespace mv {
 		std::shared_ptr<Input> input;
         bool windowWasResized = {false};
 	};
-
 }

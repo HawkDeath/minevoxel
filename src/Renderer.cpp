@@ -6,7 +6,7 @@ namespace mv {
   Renderer::Renderer(Window& window, Device& device) : mWindow{ window }, mDevice{ device }, currentImageIdx{0}
   {
     recreateSwapChain();
-      createCommandBuffers();
+    createCommandBuffers();
   }
 
   Renderer::~Renderer()

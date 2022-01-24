@@ -21,5 +21,4 @@ namespace mv {
 	private:
 		std::array<int, GLFW_KEY_LAST> keys;
 	};
-
 }

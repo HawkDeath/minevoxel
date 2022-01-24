@@ -99,7 +99,4 @@ namespace mv {
     std::vector<VkFence> imagesInFlight;
     size_t currentFrame = { 0 };
   };
-
-
 }
-

@@ -3,11 +3,8 @@
 #include "Log.h"
 
 namespace mv {
-
-
 	void MineVoxelGame::run()
 	{
-
 		auto currentTime = std::chrono::high_resolution_clock::now();
 		while (!window.shouldClose())
 		{
@@ -15,6 +12,7 @@ namespace mv {
 
 			auto newTime = std::chrono::high_resolution_clock::now();
 			float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
+
 			currentTime = newTime;
 
             // update
@@ -38,9 +36,7 @@ namespace mv {
 				renderer.endSwapChainRenderPass(commandBuffer);
 				renderer.endFrame();
 			}
-
 		}
 		vkDeviceWaitIdle(device.device());
 	}
-
 }

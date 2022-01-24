@@ -166,6 +166,7 @@ namespace mv {
 
 		VK_TEST(vkCreateShaderModule(mDevice.device(), &createInfo, CUSTOM_ALLOCATOR, shaderModule), "Failed to create shader module")
 	}
+
 	std::vector<VkVertexInputBindingDescription> Vertex::getBindingDescriptions()
 	{
 		std::vector<VkVertexInputBindingDescription> bindingDesc(1);
@@ -174,6 +175,7 @@ namespace mv {
 		bindingDesc[0].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
 		return bindingDesc;
 	}
+	
 	std::vector<VkVertexInputAttributeDescription> Vertex::getAttributeDescriptions()
 	{
 		std::vector<VkVertexInputAttributeDescription> attribDesc{};

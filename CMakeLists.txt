@@ -67,4 +67,5 @@ add_subdirectory(shaders)
 
 add_executable(${PROJECT_NAME} ${MINEVOXEL_SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE spdlog Vulkan::Vulkan glfw glm)
+
 add_dependencies(${PROJECT_NAME} shaders)
