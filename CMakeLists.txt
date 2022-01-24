@@ -41,13 +41,6 @@ endif()
 # spdlog
 add_subdirectory(deps/spdlog)
 
-set(SHADER_SOURCES
-        "${CMAKE_SOURCE_DIR}/shaders/triangle.vert"
-        "${CMAKE_SOURCE_DIR}/shaders/triangle.frag")
-
-# TODO build shaders
-
-
 include_directories(./include)
 
 set(MINEVOXEL_HPP
@@ -69,6 +62,9 @@ set(MINEVOXEL_SRC
         src/MineVoxelGame.cpp)
 
 set(MINEVOXEL_SOURCES main.cpp ${MINEVOXEL_SRC} ${MINEVOXEL_HPP})
+add_subdirectory(shaders)
+
 
 add_executable(${PROJECT_NAME} ${MINEVOXEL_SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE spdlog Vulkan::Vulkan glfw glm)
+add_dependencies(${PROJECT_NAME} shaders)
