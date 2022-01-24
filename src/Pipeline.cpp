@@ -153,8 +153,7 @@ namespace mv {
 		pipelineInfo.basePipelineIndex = -1;
 
 		VK_TEST(vkCreateGraphicsPipelines(mDevice.device(), VK_NULL_HANDLE, 1, &pipelineInfo, CUSTOM_ALLOCATOR, &graphicsPipeline),
-		"Failed to create graphics pipeline")
-		
+		"Failed to create graphics pipeline")	
 	}
 
 	void Pipeline::createShaderModule(const std::vector<char>& shaderBinary, VkShaderModule* shaderModule)

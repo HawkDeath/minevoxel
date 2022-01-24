@@ -2,9 +2,14 @@
 #include <chrono>
 #include "Log.h"
 
+#include "systems/TestRenderSystem.h"
+
 namespace mv {
 	void MineVoxelGame::run()
 	{
+
+		TestRenderSystem renderSystem = {device, renderer.getSwapChainRenderPass(), nullptr};
+
 		auto currentTime = std::chrono::high_resolution_clock::now();
 		while (!window.shouldClose())
 		{
@@ -32,7 +37,7 @@ namespace mv {
 
 				renderer.beginSwapChainRenderPass(commandBuffer);
 				// render system; call to all objects to draw via vkCmdDraw()
-
+				renderSystem.render(commandBuffer);
 				renderer.endSwapChainRenderPass(commandBuffer);
 				renderer.endFrame();
 			}
