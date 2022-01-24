@@ -5,16 +5,14 @@
 #include <string>
 #include <vector>
 
-#define GLM_FORCE_RADIANS
-#define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
 
 namespace mv {
 	struct Vertex
 	{
-		glm::vec3 position = {};
-		glm::vec3 color = {};
-		glm::vec3 normal = {};
+		glm::vec4 position = {};
+		glm::vec4 color = {};
+		glm::vec4 normal = {};
 		glm::vec2 uv = {};
 
 		static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();

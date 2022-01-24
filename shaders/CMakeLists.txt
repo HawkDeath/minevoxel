@@ -9,7 +9,9 @@ find_program(GLSL_VALIDATOR glslangValidator HINTS
             $ENV{VULKAN_SDK}/Bin
             $ENV{VULKAN_SDK}/Bin32)
 
-set(SHADERS_SOURCES 
+set(SHADERS_SOURCES
+    model.frag
+    model.vert
     triangle.frag
     triangle.vert)
 

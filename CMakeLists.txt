@@ -33,6 +33,7 @@ target_compile_definitions(glm INTERFACE
         GLM_FORCE_SWIZZLE
         GLM_FORCE_RADIANS
         GLM_FORCE_CTOR_INIT
+        GLM_FORCE_DEPTH_ZERO_TO_ONE
         GLM_ENABLE_EXPERIMENTAL)
 if(NOT CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     target_compile_definitions(glm INTERFACE GLM_FORCE_CXX14)
