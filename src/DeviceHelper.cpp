@@ -146,7 +146,7 @@ namespace mv {
       std::ifstream file{ filepath, std::ios_base::ate | std::ios_base::binary };
 
       if (!file.is_open()) {
-        RT_THROW("Failed to open file: {}" + filepath);
+        RT_THROW("Failed to open file: " + filepath);
       }
 
       auto fileSize = static_cast<size_t>(file.tellg());

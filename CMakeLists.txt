@@ -46,6 +46,7 @@ include_directories(./include)
 
 set(MINEVOXEL_HPP
         include/systems/TestRenderSystem.h
+        include/Camera.h
         include/Device.h
         include/DeviceHelper.h
         include/Renderer.h
@@ -56,6 +57,7 @@ set(MINEVOXEL_HPP
 
 set(MINEVOXEL_SRC
         src/systems/TestRenderSystem.cpp
+        src/Camera.cpp
         src/Device.cpp
         src/DeviceHelper.cpp
         src/Renderer.cpp
