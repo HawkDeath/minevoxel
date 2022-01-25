@@ -45,7 +45,9 @@ add_subdirectory(deps/spdlog)
 include_directories(./include)
 
 set(MINEVOXEL_HPP
+        include/systems/ModelTestRenderSystem.h
         include/systems/TestRenderSystem.h
+        include/Buffer.h
         include/Camera.h
         include/Device.h
         include/DeviceHelper.h
@@ -56,7 +58,9 @@ set(MINEVOXEL_HPP
         include/MineVoxelGame.h)
 
 set(MINEVOXEL_SRC
+        src/systems/ModelTestRenderSystem.cpp
         src/systems/TestRenderSystem.cpp
+        src/Buffer.cpp
         src/Camera.cpp
         src/Device.cpp
         src/DeviceHelper.cpp

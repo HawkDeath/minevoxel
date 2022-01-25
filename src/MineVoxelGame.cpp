@@ -33,6 +33,11 @@ namespace mv {
 			if (auto commandBuffer = renderer.beginFrame()) {
 				int frameIdx = renderer.getFrameIndex();
 
+				FrameInfo frameInfo = {
+					commandBuffer,
+					nullptr
+				};
+
 				// update UBO; MVP matrix
 
 				renderer.beginSwapChainRenderPass(commandBuffer);

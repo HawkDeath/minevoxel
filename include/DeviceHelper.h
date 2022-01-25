@@ -28,6 +28,11 @@ namespace mv {
 		}
 	};
 
+	struct FrameInfo {
+		VkCommandBuffer commandBuffer;
+		VkDescriptorSet frameDescriptorSet;
+	};
+
 	namespace device_helper {
 		SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device, VkSurfaceKHR* surface);
 		QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR* surface);

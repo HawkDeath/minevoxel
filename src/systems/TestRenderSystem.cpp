@@ -2,8 +2,6 @@
 #include "DeviceHelper.h"
 #include "Log.h"
 
-
-
 #include <vector>
 
 namespace mv {
@@ -30,10 +28,6 @@ namespace mv {
 
         VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
         pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-        pipelineLayoutInfo.setLayoutCount = static_cast<uint32_t>(descriptorLayouts.size());
-        pipelineLayoutInfo.pSetLayouts = descriptorLayouts.data();
-        pipelineLayoutInfo.pushConstantRangeCount = 0;
-        pipelineLayoutInfo.pPushConstantRanges = nullptr;
 
         VK_TEST(vkCreatePipelineLayout(mDevice.device(), &pipelineLayoutInfo, CUSTOM_ALLOCATOR, &mPipelineLayout), "Failed to create pipeline layout")
     }
