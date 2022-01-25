@@ -6,11 +6,11 @@
 namespace mv {
 
   Window::Window(const std::string& title, const std::uint32_t& width, const std::uint32_t& height)
-  : mTitle{ title }, mWidth{ width }, mHeight{ height }, mWindow{ nullptr }
+    : mTitle{ title }, mWidth{ width }, mHeight{ height }, mWindow{ nullptr }
   {
     glfwSetErrorCallback([](int code, const char* description) -> void {
       ELOG("[GLFW] {}: {}", code, description);
-    });
+      });
 
     auto result = glfwInit();
     if (result != GLFW_TRUE) {
@@ -48,13 +48,13 @@ namespace mv {
 
   void Window::key_callback(GLFWwindow* win, int key, int scancode, int action, int mods)
   {
-      UNUSE(scancode);
-      UNUSE(mods);
-      auto window = reinterpret_cast<Window*>(glfwGetWindowUserPointer(win));
-      window->input->keys[key] = action;
+    UNUSE(scancode);
+    UNUSE(mods);
+    auto window = reinterpret_cast<Window*>(glfwGetWindowUserPointer(win));
+    window->input->keys[key] = action;
   }
 
-  void Window::framebuffer_size_callback(GLFWwindow *win, int width, int height) {
+  void Window::framebuffer_size_callback(GLFWwindow* win, int width, int height) {
     auto window = reinterpret_cast<Window*>(glfwGetWindowUserPointer(win));
     window->windowWasResized = true;
     window->mWidth = static_cast<std::uint32_t>(width);

@@ -5,23 +5,23 @@
 #include <vulkan/vulkan.h>
 
 namespace mv {
-class Buffer
-{
-public:
-    Buffer(Device &device);
+  class Buffer
+  {
+  public:
+    Buffer(Device& device);
     ~Buffer();
 
-private:
-    Device &mDevice;
+  private:
+    Device& mDevice;
 
-};
+  };
 
-Buffer::Buffer(Device &device) : mDevice {device}
-{
-}
+  Buffer::Buffer(Device& device) : mDevice{ device }
+  {
+  }
 
-Buffer::~Buffer()
-{
-}
+  Buffer::~Buffer()
+  {
+  }
 
 }

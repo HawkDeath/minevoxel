@@ -83,7 +83,7 @@ namespace mv {
 
     auto indices = mDevice.findPhysicalQueueFamily();
     std::uint32_t queueFamilyIndices[] = { indices.graphicsFamily.value(), indices.presentFamily.value() };
-    
+
     if (indices.graphicsFamily.value() != indices.presentFamily.value()) {
       createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
       createInfo.queueFamilyIndexCount = 2;
@@ -105,7 +105,7 @@ namespace mv {
 
     VK_TEST(vkCreateSwapchainKHR(mDevice.device(), &createInfo, CUSTOM_ALLOCATOR, &swapChain), "Failed to create swap chain")
 
-    vkGetSwapchainImagesKHR(mDevice.device(), swapChain, &imageCount, nullptr);
+      vkGetSwapchainImagesKHR(mDevice.device(), swapChain, &imageCount, nullptr);
     swapChainImages.resize(imageCount);
     vkGetSwapchainImagesKHR(mDevice.device(), swapChain, &imageCount, swapChainImages.data());
 
@@ -129,7 +129,7 @@ namespace mv {
       viewInfo.subresourceRange.layerCount = 1;
 
       VK_TEST(vkCreateImageView(mDevice.device(), &viewInfo, CUSTOM_ALLOCATOR, &swapChainImageViews[i]),
-      "Failed to create texture image view")
+        "Failed to create texture image view")
     }
   }
 
@@ -171,7 +171,7 @@ namespace mv {
       viewInfo.subresourceRange.levelCount = 1;
       viewInfo.subresourceRange.layerCount = 1;
 
-      VK_TEST(vkCreateImageView(mDevice.device(), &viewInfo, CUSTOM_ALLOCATOR, &depthImageViews[i]),"Failed to create texture image view")
+      VK_TEST(vkCreateImageView(mDevice.device(), &viewInfo, CUSTOM_ALLOCATOR, &depthImageViews[i]), "Failed to create texture image view")
     }
   }
 
@@ -228,7 +228,7 @@ namespace mv {
     renderPassInfo.dependencyCount = 1;
     renderPassInfo.pDependencies = &subpassDeps;
 
-    VK_TEST(vkCreateRenderPass(mDevice.device(), &renderPassInfo, CUSTOM_ALLOCATOR, &renderPass),"Failed to create render pass")
+    VK_TEST(vkCreateRenderPass(mDevice.device(), &renderPassInfo, CUSTOM_ALLOCATOR, &renderPass), "Failed to create render pass")
   }
 
   void SwapChain::createFramebuffers() {
@@ -267,11 +267,11 @@ namespace mv {
 
     for (size_t i = 0; i < MAX_FRAME_IN_FLIGHT; i++)
     {
-       VK_TEST(vkCreateSemaphore(mDevice.device(), &semaphoreInfo, CUSTOM_ALLOCATOR, &imageAvailableSemaphores[i]) ||
+      VK_TEST(vkCreateSemaphore(mDevice.device(), &semaphoreInfo, CUSTOM_ALLOCATOR, &imageAvailableSemaphores[i]) ||
         (vkCreateSemaphore(mDevice.device(), &semaphoreInfo, CUSTOM_ALLOCATOR, &renderFinishedSemaphores[i])) ||
         (vkCreateFence(mDevice.device(), &fenceInfo, CUSTOM_ALLOCATOR, &inFlightFences[i])),
         "Failed to create synchronization objects for frame")
-      
+
     }
   }
 
@@ -282,13 +282,13 @@ namespace mv {
       VK_IMAGE_TILING_OPTIMAL,
       VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
   }
-  
+
   VkResult SwapChain::acquireNextImage(std::uint32_t* imageIdx)
   {
     vkWaitForFences(mDevice.device(), 1, &inFlightFences[currentFrame], VK_TRUE, std::numeric_limits<std::uint64_t>::max());
     VkResult result = vkAcquireNextImageKHR(
-      mDevice.device(), 
-      swapChain, 
+      mDevice.device(),
+      swapChain,
       std::numeric_limits<std::uint64_t>::max(),
       imageAvailableSemaphores[currentFrame],
       VK_NULL_HANDLE, imageIdx);
@@ -323,12 +323,12 @@ namespace mv {
 
     VK_TEST(vkQueueSubmit(mDevice.getGraphicsQueue(), 1, &submitInfo, inFlightFences[currentFrame]), "Failed to submit draw command buffer")
 
-    VkPresentInfoKHR presentInfo = {};
+      VkPresentInfoKHR presentInfo = {};
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
 
     presentInfo.waitSemaphoreCount = 1;
     presentInfo.pWaitSemaphores = signalSemaphores;
-    
+
     VkSwapchainKHR swapChains[] = { swapChain };
     presentInfo.swapchainCount = 1;
     presentInfo.pSwapchains = swapChains;

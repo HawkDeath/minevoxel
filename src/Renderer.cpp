@@ -3,7 +3,7 @@
 #include <array>
 
 namespace mv {
-  Renderer::Renderer(Window& window, Device& device) : mWindow{ window }, mDevice{ device }, currentImageIdx{0}
+  Renderer::Renderer(Window& window, Device& device) : mWindow{ window }, mDevice{ device }, currentImageIdx{ 0 }
   {
     recreateSwapChain();
     createCommandBuffers();
@@ -36,7 +36,7 @@ namespace mv {
 
     VK_TEST(vkBeginCommandBuffer(commandBuffer, &beginInfo), "Failed to begin recording command buffer")
 
-    return commandBuffer;
+      return commandBuffer;
   }
 
   void Renderer::endFrame()
@@ -47,9 +47,9 @@ namespace mv {
 
     VK_TEST(vkEndCommandBuffer(commandBuffer), "Failed to record command buffer")
 
-    auto result = swapChain->submitCommandBuffers(&commandBuffer, &currentImageIdx);
+      auto result = swapChain->submitCommandBuffers(&commandBuffer, &currentImageIdx);
     if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR
-       || mWindow.wasResized()) {
+      || mWindow.wasResized()) {
       recreateSwapChain();
       mWindow.resetResizeFlag();
     }

@@ -90,10 +90,10 @@ namespace mv {
       auto indices = findQueueFamilies(device, surface);
       bool extensionsSupported = checkDeviceExtensionSupport(device, deviceExtensions);
 
-      bool swapChainAdequate = {false};
+      bool swapChainAdequate = { false };
       if (extensionsSupported) {
         auto swapChainSupport = querySwapChainSupport(device, surface);
-          swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
+        swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
       }
 
       VkPhysicalDeviceFeatures supportedFeatures;
@@ -102,7 +102,7 @@ namespace mv {
       return indices.isComplete() && extensionsSupported && swapChainAdequate && supportedFeatures.samplerAnisotropy;
     }
   }
-  
+
   namespace swapchain_helper {
     VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats) {
       for (const auto& availableFormat : availableFormats) {

@@ -3,7 +3,7 @@
 
 
 int main(int argc, char* argv[]) {
- 
+
   try {
     mv::MineVoxelGame game;
     game.run();
