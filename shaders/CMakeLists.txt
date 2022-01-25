@@ -17,7 +17,7 @@ set(SHADERS_SOURCES
 
 
 foreach(SHADER ${SHADERS_SOURCES})
-    set(SPIRV_OUT "${PROJECT_BINARY_DIR}/../output/bin/shaders/${SHADER}.spv")
+    set(SPIRV_OUT "${CMAKE_SOURCE_DIR}/output/bin/shaders/${SHADER}.spv")
     get_filename_component(FILE_NAME ${SHADER} NAME)
     add_custom_command(
         OUTPUT ${SPIRV_OUT}
