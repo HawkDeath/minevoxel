@@ -48,6 +48,6 @@ namespace mv {
   }
 
   namespace pipeline_helper {
-    std::vector<char> readFile(const std::string& filepath);
+    std::vector<char> readBinaryFile(const std::string& filepath);
   }
 }

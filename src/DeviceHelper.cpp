@@ -142,7 +142,7 @@ namespace mv {
   }
 
   namespace pipeline_helper {
-    std::vector<char> readFile(const std::string& filepath) {
+    std::vector<char> readBinaryFile(const std::string& filepath) {
       std::ifstream file{ filepath, std::ios_base::ate | std::ios_base::binary };
 
       if (!file.is_open()) {

@@ -100,8 +100,8 @@ namespace mv {
     assert(config.pipelineLayout != VK_NULL_HANDLE &&
       "Cannot create graphics pipeline: no pipelineLayout provided in configPipeline");
 
-    auto vertCode = pipeline_helper::readFile(vertexFilepath);
-    auto fragCode = pipeline_helper::readFile(fragmentFilepath);
+    auto vertCode = pipeline_helper::readBinaryFile(vertexFilepath);
+    auto fragCode = pipeline_helper::readBinaryFile(fragmentFilepath);
 
     createShaderModule(vertCode, &vertexShaderModule);
     createShaderModule(fragCode, &fragmentShaderModule);

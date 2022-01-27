@@ -31,9 +31,8 @@ namespace mv {
 
   void Window::createSurface(VkInstance instance, VkSurfaceKHR* surface)
   {
-    if (glfwCreateWindowSurface(instance, mWindow, CUSTOM_ALLOCATOR, surface) != VK_SUCCESS) {
-      RT_THROW("Failed to create window surface");
-    }
+    VK_TEST(glfwCreateWindowSurface(instance, mWindow, CUSTOM_ALLOCATOR, surface),
+      "Failed to create window surface");
   }
 
   void Window::createWindow()
