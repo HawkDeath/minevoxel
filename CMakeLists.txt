@@ -51,6 +51,7 @@ set(MINEVOXEL_HPP
         include/Camera.h
         include/Device.h
         include/DeviceHelper.h
+        include/Descriptors.h
         include/Renderer.h
         include/Pipeline.h
         include/Window.h
@@ -64,6 +65,7 @@ set(MINEVOXEL_SRC
         src/Camera.cpp
         src/Device.cpp
         src/DeviceHelper.cpp
+        src/Descriptors.cpp
         src/Renderer.cpp
         src/Pipeline.cpp
         src/Window.cpp
