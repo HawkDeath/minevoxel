@@ -2,6 +2,8 @@
 #include "Log.h"
 #include "DeviceHelper.h"
 
+#include "Model.h"
+
 #include <cassert>
 
 namespace mv {
@@ -164,24 +166,5 @@ namespace mv {
     createInfo.pCode = reinterpret_cast<const std::uint32_t*>(shaderBinary.data());
 
     VK_TEST(vkCreateShaderModule(mDevice.device(), &createInfo, CUSTOM_ALLOCATOR, shaderModule), "Failed to create shader module")
-  }
-
-  std::vector<VkVertexInputBindingDescription> Vertex::getBindingDescriptions()
-  {
-    std::vector<VkVertexInputBindingDescription> bindingDesc(1);
-    bindingDesc[0].binding = 0;
-    bindingDesc[0].stride = sizeof(Vertex);
-    bindingDesc[0].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    return bindingDesc;
-  }
-
-  std::vector<VkVertexInputAttributeDescription> Vertex::getAttributeDescriptions()
-  {
-    std::vector<VkVertexInputAttributeDescription> attribDesc{};
-    attribDesc.push_back({ 0, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex, position) });
-    attribDesc.push_back({ 1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex, color) });
-    attribDesc.push_back({ 2, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex, normal) });
-    attribDesc.push_back({ 3, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex, uv) });
-    return attribDesc;
   }
 }

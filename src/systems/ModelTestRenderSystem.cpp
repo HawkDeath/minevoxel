@@ -1,5 +1,5 @@
 #include "systems/ModelTestRenderSystem.h"
-
+#include "Model.h"
 #include <vector>
 
 namespace mv {
@@ -21,6 +21,10 @@ namespace mv {
     vkCmdBindDescriptorSets(frameInfo.commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, mPipelineLayout, 0, 1, &frameInfo.frameDescriptorSet, 0, nullptr);
 
     // draw models
+    for (auto& model : frameInfo.models) {
+        model->bind(frameInfo.commandBuffer);
+        model->draw(frameInfo.commandBuffer);
+    }
   }
 
   void ModelTestRenderSystem::createPipelineLayout(VkDescriptorSetLayout descriptorSetLayout) {

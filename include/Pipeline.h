@@ -5,24 +5,8 @@
 #include <string>
 #include <vector>
 
-#include <glm/glm.hpp>
 
 namespace mv {
-  struct Vertex
-  {
-    glm::vec4 position = {};
-    glm::vec4 color = {};
-    glm::vec4 normal = {};
-    glm::vec2 uv = {};
-
-    static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();
-    static std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions();
-
-    bool operator==(const Vertex& other) const {
-      return other.position == position && other.normal == normal && other.color == color && other.uv == uv;
-    }
-
-  };
 
   struct PipelineConfig
   {

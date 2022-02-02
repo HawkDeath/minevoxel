@@ -11,6 +11,8 @@
 #define VK_TEST(func, msg) if (((func) != VK_SUCCESS)) {RT_THROW(msg);}
 
 namespace mv {
+  class Model;
+
   struct SwapChainSupportDetails
   {
     VkSurfaceCapabilitiesKHR capabilities;
@@ -31,6 +33,7 @@ namespace mv {
   struct FrameInfo {
     VkCommandBuffer commandBuffer;
     VkDescriptorSet frameDescriptorSet;
+    std::vector<std::unique_ptr<Model>>& models;
   };
 
   namespace device_helper {

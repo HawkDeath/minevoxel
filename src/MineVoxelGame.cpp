@@ -3,12 +3,18 @@
 #include "Log.h"
 
 #include "systems/TestRenderSystem.h"
+#include "Model.h"
 
 namespace mv {
   void MineVoxelGame::run()
   {
 
     TestRenderSystem renderSystem = { device, renderer.getSwapChainRenderPass(), nullptr };
+    ModelLoader loader;
+    loader.vertices.push_back({});
+
+    std::vector<std::unique_ptr<Model>> models;
+    models.push_back( std::make_unique<Model>(device, loader));
 
     auto currentTime = std::chrono::high_resolution_clock::now();
     while (!window.shouldClose())
@@ -35,7 +41,8 @@ namespace mv {
 
         FrameInfo frameInfo = {
           commandBuffer,
-          nullptr
+          nullptr,
+          models
         };
 
         // update UBO; MVP matrix

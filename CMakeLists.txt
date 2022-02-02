@@ -52,6 +52,7 @@ set(MINEVOXEL_HPP
         include/Device.h
         include/DeviceHelper.h
         include/Descriptors.h
+        include/Model.h
         include/Renderer.h
         include/Pipeline.h
         include/Window.h
@@ -66,6 +67,7 @@ set(MINEVOXEL_SRC
         src/Device.cpp
         src/DeviceHelper.cpp
         src/Descriptors.cpp
+        src/Model.cpp
         src/Renderer.cpp
         src/Pipeline.cpp
         src/Window.cpp
