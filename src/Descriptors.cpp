@@ -155,6 +155,7 @@ void DescriptorWriter::writeImage(uint32_t binding,
   write.dstBinding = binding;
   write.pImageInfo = imageInfo;
   write.descriptorCount = 1;
+  
 
   mWriters.push_back(write);
 }

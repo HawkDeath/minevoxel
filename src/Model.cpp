@@ -161,8 +161,8 @@ void ModelLoader::load(const std::string &filePath) {
       } // normal_index
 
       if (index.texcoord_index >= 0) {
-        vertex.uv = {attrib.texcoords[2 * index.normal_index + 0],
-                     attrib.texcoords[2 * index.normal_index + 1]};
+        vertex.uv = {attrib.texcoords[2 * index.texcoord_index + 0],
+                     attrib.texcoords[2 * index.texcoord_index + 1]};
       } // texcoord_index
 
       if (uniqueVertices.count(vertex) == 0) {

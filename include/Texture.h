@@ -4,34 +4,47 @@
 
 #include <vulkan/vulkan.h>
 
-#define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
 #include <string>
 
 namespace mv {
-class Texture {
-public:
-  Texture(Device &device, const std::string &textureFilePath);
-  ~Texture();
+  class Texture {
+  public:
+    Texture(Device& device, const std::string& textureFilePath, VkFormat format);
+    ~Texture();
 
-private:
-  void loadTextureFromFile(const std::string &filePath);
-  void createTexture();
-  void createImageBuffer();
-  void transitionImageLayout(VkImage image, VkFormat format,
-                             VkImageLayout oldLayout, VkImageLayout newLayout);
 
-private:
-  Device &mDevice;
+    VkImageView getImageView() const {
+      return mImageView;
+    }
 
-  VkImage mImage;
-  VkDeviceMemory mImageMemory;
+    VkSampler getSampler() const {
+      return mImageSampler;
+    }
 
-  std::int32_t mWidth;
-  std::int32_t mHeight;
-  std::int32_t mChannels;
-  stbi_uc *mImageRawData;
-};
+  private:
+    void loadTextureFromFile(const std::string& filePath);
+    void createTexture();
+    void createImageView();
+    void createTextureSampler();
+    void createImageBuffer();
+    void transitionImageLayout(VkImage image, VkFormat format,
+      VkImageLayout oldLayout, VkImageLayout newLayout);
+
+  private:
+    Device& mDevice;
+
+    VkImage mImage;
+    VkDeviceMemory mImageMemory;
+    VkImageView mImageView;
+    VkSampler mImageSampler;
+    VkFormat mFormat;
+
+    std::int32_t mWidth;
+    std::int32_t mHeight;
+    std::int32_t mChannels;
+    stbi_uc* mImageRawData;
+  };
 
 } // namespace mv
