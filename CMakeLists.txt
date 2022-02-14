@@ -45,6 +45,9 @@ add_subdirectory(deps/spdlog)
 # tinyobjloader
 add_subdirectory(deps/tinyobjloader)
 
+# stb_image
+include_directories(deps)
+
 # minevoxel
 
 include_directories(./include)
@@ -62,6 +65,7 @@ set(MINEVOXEL_HPP
         include/Pipeline.h
         include/Window.h
         include/SwapChain.h
+        include/Texture.h
         include/MineVoxelGame.h)
 
 set(MINEVOXEL_SRC
@@ -77,6 +81,7 @@ set(MINEVOXEL_SRC
         src/Pipeline.cpp
         src/Window.cpp
         src/SwapChain.cpp
+        src/Texture.cpp
         src/MineVoxelGame.cpp)
 
 set(MINEVOXEL_SOURCES main.cpp ${MINEVOXEL_SRC} ${MINEVOXEL_HPP})
