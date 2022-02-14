@@ -11,6 +11,10 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#ifndef RESOURCES_PATH
+#define RESOURCES_PATH "./"
+#endif
+
 namespace mv {
 struct UniformBufferObj {
   glm::mat4 model;
@@ -56,8 +60,9 @@ void MineVoxelGame::run() {
       device, renderer.getSwapChainRenderPass(),
       globalDescriptorSetLayout->getDescriptorSetLayout()};
 
+  std::string cubeModelPath = RESOURCES_PATH + std::string("/cube.obj");
   ModelLoader loader;
-  loader.load("C:\\models\\cube2.obj");
+  loader.load(cubeModelPath);
 
   std::vector<std::unique_ptr<Model>> models;
   models.push_back(std::make_unique<Model>(device, loader));

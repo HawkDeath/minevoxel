@@ -13,6 +13,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/output/lib")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/output/bin")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/output/lib")
 
+add_definitions(-DRESOURCES_PATH="${CMAKE_CURRENT_SOURCE_DIR}/assets")
+
 # find Vulkan
 find_package(Vulkan REQUIRED FATAL_ERROR)
 find_package(Vulkan COMPONENTS glslc)
