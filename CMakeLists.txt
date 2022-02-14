@@ -42,6 +42,11 @@ endif()
 # spdlog
 add_subdirectory(deps/spdlog)
 
+# tinyobjloader
+add_subdirectory(deps/tinyobjloader)
+
+# minevoxel
+
 include_directories(./include)
 
 set(MINEVOXEL_HPP
@@ -79,6 +84,6 @@ add_subdirectory(shaders)
 
 
 add_executable(${PROJECT_NAME} ${MINEVOXEL_SOURCES})
-target_link_libraries(${PROJECT_NAME} PRIVATE spdlog Vulkan::Vulkan glfw glm)
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog Vulkan::Vulkan glfw glm tinyobjloader)
 
 add_dependencies(${PROJECT_NAME} shaders)
