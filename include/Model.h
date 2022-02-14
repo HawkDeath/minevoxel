@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Device.h"
 #include "Buffer.h"
+#include "Device.h"
 
 #include <glm/glm.hpp>
 #include <vulkan/vulkan.h>
@@ -11,56 +11,52 @@
 
 namespace mv {
 
-	struct Vertex
-	{
-		glm::vec3 position = {};
-		glm::vec3 color = {};
-		glm::vec3 normal = {};
-		glm::vec2 uv = {};
+struct Vertex {
+  glm::vec3 position = {};
+  glm::vec3 color = {};
+  glm::vec3 normal = {};
+  glm::vec2 uv = {};
 
-		static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();
-		static std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions();
+  static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();
+  static std::vector<VkVertexInputAttributeDescription>
+  getAttributeDescriptions();
 
-		bool operator==(const Vertex& other) const {
-			return position == other.position && normal == other.normal && color == other.color && uv == other.uv;
-		}
+  bool operator==(const Vertex &other) const {
+    return position == other.position && normal == other.normal &&
+           color == other.color && uv == other.uv;
+  }
+};
 
-	};
+struct ModelLoader {
+  std::vector<Vertex> vertices = {};
+  std::vector<uint32_t> indices = {};
 
-	struct ModelLoader
-	{
-		std::vector<Vertex> vertices = {};
-		std::vector<uint32_t> indices = {};
+  void load(const std::string &filePath);
+};
 
-		void load(const std::string& filePath);
-	};
+class Model {
+public:
+  Model(Device &device, const ModelLoader &loader);
 
+  Model(const Model &) = delete;
+  Model &operator=(const Model &) = delete;
 
-	class Model
-	{
-	public:
-		Model(Device &device, const ModelLoader &loader);
+  void bind(VkCommandBuffer commandBuffer);
+  void draw(VkCommandBuffer commandBuffer);
 
-		Model(const Model&) = delete;
-		Model& operator=(const Model&) = delete;
+private:
+  void createVertexBuffer(const std::vector<Vertex> &vertices);
+  void createIndexBuffer(const std::vector<uint32_t> &indices);
 
-		void bind(VkCommandBuffer commandBuffer);
-		void draw(VkCommandBuffer commandBuffer);
+private:
+  Device &mDevice;
 
-	private:
-		void createVertexBuffer(const std::vector<Vertex>& vertices);
-		void createIndexBuffer(const std::vector<uint32_t>& indices);
+  std::unique_ptr<Buffer> mVertexBuffer;
+  uint32_t mVertexCount = {0};
 
-	private:
-		Device& mDevice;
+  bool mHasIndices = {false};
+  std::unique_ptr<Buffer> mIndexBuffer;
+  uint32_t mIndexCount = {0};
+};
 
-		std::unique_ptr<Buffer> mVertexBuffer;
-		uint32_t mVertexCount = {0};
-
-		bool mHasIndices = { false };
-		std::unique_ptr<Buffer> mIndexBuffer;
-		uint32_t mIndexCount = {0};
-
-	};
-
-}
+} // namespace mv

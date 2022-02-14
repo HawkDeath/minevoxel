@@ -7,23 +7,22 @@
 
 #include <memory>
 
-
 namespace mv {
-    class ModelTestRenderSystem
-    {
-    public:
-        ModelTestRenderSystem(Device &device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
-        ~ModelTestRenderSystem();
+class ModelTestRenderSystem {
+public:
+  ModelTestRenderSystem(Device &device, VkRenderPass renderPass,
+                        VkDescriptorSetLayout globalSetLayout);
+  ~ModelTestRenderSystem();
 
-        void render(FrameInfo &frameInfo);
+  void render(FrameInfo &frameInfo);
 
-    private:
-        void createPipelineLayout(VkDescriptorSetLayout descriptorSetLayout);
-        void createPipline(VkRenderPass renderPass);
+private:
+  void createPipelineLayout(VkDescriptorSetLayout descriptorSetLayout);
+  void createPipline(VkRenderPass renderPass);
 
-    private:
-        Device &mDevice;
-        std::unique_ptr<Pipeline> mPipeline;
-        VkPipelineLayout mPipelineLayout;
-    };
-}
+private:
+  Device &mDevice;
+  std::unique_ptr<Pipeline> mPipeline;
+  VkPipelineLayout mPipelineLayout;
+};
+} // namespace mv

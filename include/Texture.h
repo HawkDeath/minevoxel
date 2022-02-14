@@ -10,30 +10,28 @@
 #include <string>
 
 namespace mv {
-	class Texture
-	{
-	public:
-		Texture(Device &device, const std::string &textureFilePath);
-		~Texture();
+class Texture {
+public:
+  Texture(Device &device, const std::string &textureFilePath);
+  ~Texture();
 
+private:
+  void loadTextureFromFile(const std::string &filePath);
+  void createTexture();
+  void createImageBuffer();
+  void transitionImageLayout(VkImage image, VkFormat format,
+                             VkImageLayout oldLayout, VkImageLayout newLayout);
 
+private:
+  Device &mDevice;
 
-	private:
-		void loadTextureFromFile(const std::string& filePath);
-		void createTexture();
-		void createImageBuffer();
-		void transitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
+  VkImage mImage;
+  VkDeviceMemory mImageMemory;
 
-	private:
-		Device& mDevice;
+  std::int32_t mWidth;
+  std::int32_t mHeight;
+  std::int32_t mChannels;
+  stbi_uc *mImageRawData;
+};
 
-		VkImage mImage;
-		VkDeviceMemory mImageMemory;
-
-		std::int32_t mWidth;
-		std::int32_t mHeight;
-		std::int32_t mChannels;
-		stbi_uc* mImageRawData;
-	};
-
-}
+} // namespace mv

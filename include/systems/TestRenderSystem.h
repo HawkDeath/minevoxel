@@ -8,21 +8,22 @@
 #include <memory>
 
 namespace mv {
-    class TestRenderSystem
-    {
-    public:
-        TestRenderSystem(Device &device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
-        ~TestRenderSystem();
+class TestRenderSystem {
+public:
+  TestRenderSystem(Device &device, VkRenderPass renderPass,
+                   VkDescriptorSetLayout globalSetLayout);
+  ~TestRenderSystem();
 
-        void render(VkCommandBuffer commandBuffer);
-    private:
-        void createPipelineLayout(VkDescriptorSetLayout descriptorLayout);
-        void createPipeline(VkRenderPass renderPass);
+  void render(VkCommandBuffer commandBuffer);
 
-    private:
-        Device &mDevice;
-        std::unique_ptr<Pipeline> mPipeline;
-        VkPipelineLayout mPipelineLayout;
-    };
+private:
+  void createPipelineLayout(VkDescriptorSetLayout descriptorLayout);
+  void createPipeline(VkRenderPass renderPass);
 
-}
+private:
+  Device &mDevice;
+  std::unique_ptr<Pipeline> mPipeline;
+  VkPipelineLayout mPipelineLayout;
+};
+
+} // namespace mv
