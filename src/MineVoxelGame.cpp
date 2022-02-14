@@ -19,10 +19,8 @@ namespace mv {
     glm::mat4 projection;
   };
   
-
   void MineVoxelGame::run()
   {
-
     std::vector<std::unique_ptr<Buffer>> uboBuffers(SwapChain::MAX_FRAME_IN_FLIGHT);
     auto sizeOfBuffer = static_cast<VkDeviceSize>(sizeof(UniformBufferObj));
 
@@ -56,9 +54,7 @@ namespace mv {
     ModelTestRenderSystem renderSystem = { device, renderer.getSwapChainRenderPass(), globalDescriptorSetLayout->getDescriptorSetLayout() };
 
     ModelLoader loader;
-    loader.vertices.push_back({ {0.0f, -0.5f, 0.0f, 1.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.f, 0.f} });
-    loader.vertices.push_back({ {0.5f,  0.5f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.f, 0.f} });
-    loader.vertices.push_back({ {-0.5f, 0.5f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.f, 0.f} });
+    loader.load("C:\\models\\cube2.obj");
 
     std::vector<std::unique_ptr<Model>> models;
     models.push_back( std::make_unique<Model>(device, loader));
@@ -69,7 +65,8 @@ namespace mv {
     glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
     glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
     glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-
+    UniformBufferObj ubo = {};
+    ubo.model = glm::mat4(1.0f);
     while (!window.shouldClose())
     {
       glfwPollEvents();
@@ -83,29 +80,30 @@ namespace mv {
       if (input->getKeyState(GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window.window(), GLFW_TRUE);
       }
-      auto step = 0.01f;
-      if (input->getKeyState(GLFW_KEY_W) == GLFW_PRESS) {
-        cameraPos.z -= step;
+
+      auto step = 5.f;
+      auto velocity = step * frameTime;
+      if (input->getKeyState(GLFW_KEY_W)) {
+        cameraPos.z -= velocity;
       }
-      if (input->getKeyState(GLFW_KEY_S) == GLFW_PRESS) {
-        cameraPos.z += step;
+      if (input->getKeyState(GLFW_KEY_S)) {
+        cameraPos.z += velocity;
       }
-      if (input->getKeyState(GLFW_KEY_A) == GLFW_PRESS) {
-        cameraPos.x -= step;
+      if (input->getKeyState(GLFW_KEY_A)) {
+        cameraPos.x -= velocity;
       }
-      if (input->getKeyState(GLFW_KEY_D) == GLFW_PRESS) {
-        cameraPos.x += step;
+      if (input->getKeyState(GLFW_KEY_D)) {
+        cameraPos.x += velocity;
       }
 
       // draw
       auto aspect = renderer.getAspectRatio();
       auto frameIdx = renderer.getFrameIndex();
 
-
-      UniformBufferObj ubo = {};
       ubo.projection = glm::perspective(glm::radians(90.0f), (float)aspect, 0.1f, 100.0f);
       ubo.view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-      ubo.model = glm::mat4(1.0f);
+      ubo.model = glm::rotate(ubo.model, glm::radians(frameTime * -45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+      ubo.model = glm::rotate(ubo.model, glm::radians(frameTime * 50.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
 
       // set aspect for camera

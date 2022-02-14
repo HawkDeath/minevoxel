@@ -13,16 +13,16 @@ namespace mv {
 
 	struct Vertex
 	{
-		glm::vec4 position = {};
-		glm::vec4 color = {};
-		glm::vec4 normal = {};
+		glm::vec3 position = {};
+		glm::vec3 color = {};
+		glm::vec3 normal = {};
 		glm::vec2 uv = {};
 
 		static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();
 		static std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions();
 
 		bool operator==(const Vertex& other) const {
-			return other.position == position && other.normal == normal && other.color == color && other.uv == uv;
+			return position == other.position && normal == other.normal && color == other.color && uv == other.uv;
 		}
 
 	};
@@ -31,6 +31,8 @@ namespace mv {
 	{
 		std::vector<Vertex> vertices = {};
 		std::vector<uint32_t> indices = {};
+
+		void load(const std::string& filePath);
 	};
 
 
